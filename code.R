@@ -4,7 +4,17 @@
 
 # data transform ----------------------------------------------------------
 library(tidyverse)
-readxl::read_xlsx("data.xlsx") %>% 
+df <- readxl::read_xlsx("data.xlsx")
+df %>% 
+  slice(1) %>% 
+  mutate(day = day + 1) %>% 
+  bind_rows(df) %>% 
+  arrange(desc(year), desc(month), desc(day)) %>% 
+  mutate(day2 = ifelse(lag(day) == day & lag(month) == month, NA, day),
+         month2 = ifelse(lag(day) == day & lag(month) == month, NA, month),
+         day = day2,
+         month = month2) %>% 
+  slice(-1) %>% 
   mutate(month_ru = case_when(month == 1 ~ "января",
                               month == 2 ~ "февраля",
                               month == 3 ~ "марта",
@@ -28,8 +38,7 @@ readxl::read_xlsx("data.xlsx") %>%
                               month == 9 ~ "September",
                               month == 10 ~ "October",
                               month == 11 ~ "November",
-                              month == 12 ~ "December")) %>% 
-  arrange(desc(year), desc(month), desc(day))->
+                              month == 12 ~ "December")) ->
   df
 
 
@@ -57,7 +66,10 @@ map(unique(df$year), function(i){
     data_generate_text %>% 
       slice(j)  %>% 
       mutate(one_talk = str_c("::: {.column width='15%'}\n\n",
-                              "**", day, " ", month_ru, "**\n\n", 
+                              ifelse(is.na(day), "", str_c("**", day)), 
+                              " ", 
+                              ifelse(is.na(month_ru), "", str_c(month_ru, "**")), 
+                              "\n\n", 
                               ":::\n\n",
                               "::: {.column width='85%'}\n\n",
                               "*", author, "*\n\n",
@@ -100,7 +112,10 @@ map(unique(df$year), function(i){
     data_generate_text %>% 
       slice(j)  %>% 
       mutate(one_talk = str_c("::: {.column width='15%'}\n\n",
-                              "**", day, " ", month_en, "**\n\n", 
+                              ifelse(is.na(day), "", str_c("**", day)), 
+                              " ", 
+                              ifelse(is.na(month_en), "", str_c(month_en, "**")), 
+                              "\n\n", 
                               ":::\n\n",
                               "::: {.column width='85%'}\n\n",
                               "*", author, "*\n\n",
