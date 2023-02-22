@@ -6,3 +6,5 @@ In order to generate pages
 
 1) update the `data.xlsx` file; 
 2) run the `code.R` script.
+
+The result can be seen [here](https://lingconlab.github.io/seminars_page/result_en.html) and [here](https://lingconlab.github.io/seminars_page/result_ru.html).
