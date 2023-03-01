@@ -46,11 +46,6 @@ df %>%
 
 file.remove("result_ru.qmd")
 
-str_c("\n\n## Семинары лаборатории\n\n
-  Если вы хотите участвовать в семинарах лаборатории, вы можете зарегестрироваться [здесь](https://ilcl.hse.ru/en/polls/420288221.html).
-        ") %>% 
-  write_lines("result_ru.qmd", append = TRUE)
-
 
 map(unique(df$year), function(i){
   df %>% 
@@ -91,12 +86,6 @@ quarto::quarto_render("result_ru.qmd")
 # create english part -----------------------------------------------------
 
 file.remove("result_en.qmd")
-
-str_c("\n\n## Laboratory seminars\n\n
-  If you are interested in participating in the laboratory seminars, please register [here](https://ilcl.hse.ru/en/polls/420288221.html).
-        ") %>% 
-  write_lines("result_en.qmd", append = TRUE)
-
 
 map(unique(df$year), function(i){
   df %>% 
