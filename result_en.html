@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -167,7 +172,7 @@ The use of parallel texts for typological research is a long-existing practice, 
 </div><div class="column" style="width:15%;">
 
 </div><div class="column" style="width:85%;">
-<p><em>K. Filatov</em></p>
+<p><em>Konstantin Filatov (HSE)</em></p>
 <p><strong>Reading group: Dahl, Ö. &amp; B. Wälchli. 2016. Perfects and iamitives: two gram types in one grammatical space. Letras de Hoje 51(3). 325. https://doi.org/10.15448/1984-7726.2016.3.25454.</strong></p>
 <details>
 <summary>
@@ -207,6 +212,17 @@ This study investigates the linguistic expression of bring and take events and m
 Abstract
 </summary>
 There is some general idea of what Semitic verbal “patterns” (also called templates, binyanim, породы) are — not only among semitists, but also among linguists. The expected canonical verbal root in Semitic languages is purely consonantal, and inflected verb stems are created through a restricted number of derivational templates. These templates encode in a semi-systematic manner such dimensions of verb meaning as agency and voice. It is well described that verbal patterns can vary between languages — usually the variability of the number of the patterns, their individual form and function are mentioned. However, it is assumed that the template systems have more or less the same morphosyntactic status in all Semitic languages. The main task of my future research is to determine the status of verbal patterns in the system of Christian Urmi Neo-Aramaic (&lt; Northeastern Neo-Aramaic &lt; Semitic), a language with a significantly reduced, “non-classical” Semitic verbal system. On the one hand, three Urmian verbal patterns just mark the inflection-class membership of the verb. On the other hand, for some verbs the change of the pattern can be described as a morphological mechanism of changing valency. I will discuss the problems of establishing consonantal root in Christian Urmi, regularity of the patterns’ meanings and possible directions of my future work. Reading Group: Schreur, J. W., Allassonnière-Tang, M., Bellamy, K., &amp; Rochant, N. (2022). Predicting grammatical gender in Nakh languages: Three methods compared. Linguistic Typology at the Crossroads, 2(2), 93-126.Kirill Chuprinko (HSE)
+</details>
+</div><div class="column" style="width:15%;">
+
+</div><div class="column" style="width:85%;">
+<p><em>Kirill Chuprinko (HSE)</em></p>
+<p><strong>Reading Group. Predicting grammatical gender in Nakh languages: Three methods compared by Wichers Schreur, Allassonnière-Tang, Bellamy, Rochant</strong></p>
+<details>
+<summary>
+Abstract
+</summary>
+The Nakh languages Chechen and Tsova-Tush each have a five-valued gender system: masculine, feminine, and three “neuter” genders named for their singular agreement forms: B, D and J. Gender assignment in languages is generally analysed as being dependent on both form and semantics (e.g.&nbsp;Corbett 1991), with semantics typically prevailing over form (e.g.&nbsp;Bellamy &amp; Wichers Schreur 2022, Allassonnière-Tang et al.&nbsp;2021). Most previous studies have considered only binary or tripartite gender systems possessing one masculine, one feminine, and one neuter value. The five-valued system of Nakh thus represents a more complex and insightful case study for analysing gender assignment. In this paper we build on the existing qualitative linguistic analyses of gender assignment in Tsova-Tush (Wichers Schreur 2021) and apply three machine-learning methods to investigate the weight of form and semantics in predicting grammatical gender in Chechen and Tsova-Tush. Our main aim is thus to show how three different computational classifier methods perform on a novel set of non-Indo-European data. The results show that while both form and semantics are helpful for predicting grammatical gender in Nakh, semantics is dominant, which supports findings from existing literature (Allassonnière-Tang et al.&nbsp;2021), as well as confirming the utility of these computational methods. However, the results also show that the coded semantic information could be further fine-grained to improve the accuracy of the predictions (see also Plaster et al.&nbsp;2013). In addition, we discuss the implications of the output for our understanding of language-internal and family-internal processes of language change, including how loanwords are integrated from Russian, a three-gender language.
 </details>
 </div>
 </div>
@@ -2123,7 +2139,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
