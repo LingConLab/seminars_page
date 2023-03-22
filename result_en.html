@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -49,6 +49,28 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="seminar-schedule-2023">Seminar schedule 2023</h3>
 <div class="columns">
 <div class="column" style="width:15%;">
+<p><strong>28 March</strong></p>
+</div><div class="column" style="width:85%;">
+<p><em>Ekaterina Voloshina (AIRI), Anastasia Cheveleva (AIRI, HSE), Viktoria Knyazkova (HSE), Vitaly Protasov (AIRI), Tatiana Shavrina (AIRI), Oleg Serikov (AIRI)</em></p>
+<p><strong>Climbing the WALS: Typological Case Studies in LLMs Probing Using Syntactic Probing Framework</strong></p>
+<details>
+<summary>
+Abstract
+</summary>
+Theoretical discourse on language predominantly revolves around the hierarchical arrangement of language, which encompasses phonetics, morphology, syntax, and semantics. Although knowledge of language structure is integral in evaluating the accuracy and comprehension of language models, the emphasis on syntax in interpretation methods is insufficient. In this study, we introduce a framework to conduct syntactic probing across various languages and large language models. Drawing data from the World Atlas of Language Structures (WALS) and Universal Dependencies (UD), we compile a linguistically diverse set of languages and investigate mBERT multilingual language model for its capacity to encode syntactic information in relation to word order and relative clauses. In order to do so we make use of a novel syntactic querying interface allowing to gather data from UD collection. Our findings support the notion that mBERT exhibits a gap in recognizing syntax and a tendency to favour Standard Average European (SAE) languages when intersecting with existing diverse datasets.
+</details>
+</div><div class="column" style="width:15%;">
+
+</div><div class="column" style="width:85%;">
+<p><em>Yuri Koryakov (HSE)</em></p>
+<p><strong>Language diversity in Daghestan and beyond. How many languages are spoken there?</strong></p>
+<details>
+<summary>
+Abstract
+</summary>
+It has long been known that the Caucasus is a mountain of languages, and Dagestan then was its peak. But how many languages are actually spoken in Dagestan and how can we count them? In the talk, I will tell about the project to compile a list of languages of Russia and the principles that underlie it. And also about the application of these criteria for the languages of Dagestan and the difficulties that arise in this case. The main algorithm that we use to decide whether a given lect is a separate language includes the following criteria: tradition; mutual intelligibility, lexical distance; written tradition, linguistic and/or ethnic identity. However, in Dagestan, the only region of Russia, additional difficulties arose due to the position of some local scholars.
+</details>
+</div><div class="column" style="width:15%;">
 <p><strong>21 March</strong></p>
 </div><div class="column" style="width:85%;">
 <p><em>Yury Lander, Ksenia Romanova (HSE)</em></p>
@@ -2111,7 +2133,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -2147,24 +2186,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
