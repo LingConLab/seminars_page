@@ -1,26 +1,68 @@
 library(tidyverse)
 library(lubridate)
+library(tidytext)
+library(ggwordcloud)
+
 df <- readxl::read_xlsx("data.xlsx")
 
-df %>% 
-  mutate(date = lubridate::make_date(year = year, month = month, day = day)) %>% 
-  filter(year > 2018, year < 2023) %>% 
+df |> 
+  mutate(date = lubridate::make_date(year = year, month = month, day = day)) |> 
+  filter(year > 2018, year < 2023) |> 
   ggplot(aes(date))+
   geom_dotplot()+
   facet_wrap(~year, scales = "free")+
   theme_minimal()
   
-df %>% 
+df |> 
   mutate(author = str_remove_all(author, "\\(.*?\\)"),
-         author = str_split(author, ", ")) %>% 
-  unnest_longer(author) %>% 
-  mutate(author = str_squish(author)) %>% 
-  count(author, sort = TRUE) %>% 
-  filter(n > 1) %>%
-  mutate(author = fct_reorder(author, n)) %>% 
+         author = str_split(author, ", ")) |> 
+  unnest_longer(author) |> 
+  mutate(author = str_squish(author)) |> 
+  count(author, sort = TRUE) |> 
+  filter(n > 1) |>
+  mutate(author = fct_reorder(author, n)) |> 
   ggplot(aes(n, author))+
   geom_col()+
   labs(x = "", y = "")+
   theme_minimal()
-  
 
+map(stopwords::stopwords_getsources()[-c(3, 6, 8)], function(i){
+  print(i)
+  stopwords::stopwords(language = "en", source = i)
+}) %>% 
+  unlist() %>% 
+  unique() %>% 
+  sort() ->
+  stopwords_en
+
+set.seed(42)
+df |> 
+  mutate(abstract = str_replace_all(abstract, "Nakh-Daghestanian", "Nakh_Daghestanian"),
+         abstract = str_replace_all(abstract, "East Caucasian", "East_Caucasian"),
+         abstract = str_replace_all(abstract, "West Caucasian", "West_Caucasian"),
+         abstract = str_replace_all(abstract, "East-Caucasian", "East_Caucasian"),
+         abstract = str_replace_all(abstract, "West-Caucasian", "West_Caucasian"),
+         abstract = str_replace_all(abstract, "Dagestan", "Daghestan"),
+         abstract = str_replace_all(abstract, "language", "languages"),
+         abstract = str_replace_all(abstract, "languagess", "languages")) |> 
+  unnest_tokens(input = "abstract", output = "word") |> 
+  count(word, sort = TRUE) |> 
+  anti_join(tibble(word = stopwords_en)) |> 
+  filter(str_detect(word, "[A-z]"),
+         !(word %in% c("e.g", "eds")),
+         n > 15) |> 
+  mutate(word = case_when(word == "east_caucasian" ~ "East Caucasian",
+                          word == "caucasus" ~ "Caucasus",
+                          word == "daghestan" ~ "Daghestan",
+                          word == "daghestanian" ~ "Daghestanian",
+                          word == "nakh_daghestanian" ~ "Nakh-Daghestanian",
+                          word == "russian" ~ "Russian",
+                          word == "rutul" ~ "Rutul",
+                          word == "andic" ~ "Andic",
+                          word == "lezgic" ~ "Lezgic",
+                          word == "andi" ~ "Andi",
+                          TRUE ~ word),
+         n = log(n)) |>
+  ggplot(aes(label = word, size = n))+
+  geom_text_wordcloud(rm_outside = TRUE) +
+  theme_minimal()
