@@ -5,16 +5,16 @@
 # data transform ----------------------------------------------------------
 library(tidyverse)
 df <- readxl::read_xlsx("data.xlsx")
-df %>% 
-  slice(1) %>% 
-  mutate(day = day + 1) %>% 
-  bind_rows(df) %>% 
-  arrange(desc(year), desc(month), desc(day)) %>% 
+df |> 
+  slice(1) |> 
+  mutate(day = day + 1) |> 
+  bind_rows(df) |> 
+  arrange(desc(year), desc(month), desc(day)) |> 
   mutate(day2 = ifelse(lag(day) == day & lag(month) == month, NA, day),
          month2 = ifelse(lag(day) == day & lag(month) == month, NA, month),
          day = day2,
-         month = month2) %>% 
-  slice(-1) %>% 
+         month = month2) |> 
+  slice(-1) |> 
   mutate(month_ru = case_when(month == 1 ~ "января",
                               month == 2 ~ "февраля",
                               month == 3 ~ "марта",
@@ -48,22 +48,22 @@ file.remove("result_ru.qmd")
 
 str_c("\n\n## Семинары [международная лаборатории языковой конвергенции](https://ilcl.hse.ru/)\n\n
   Если вы хотите участвовать в семинарах лаборатории, вы можете зарегестрироваться [здесь](https://ilcl.hse.ru/en/polls/420288221.html).
-        ") %>% 
+        ") |> 
   write_lines("result_ru.qmd", append = TRUE)
 
 map(unique(df$year), function(i){
-  df %>% 
+  df |> 
     filter(year == i) ->
     data_generate_text
   
   str_c("\n\n### Расписание семинаров в ", i, " году\n\n
 :::: {.columns}
-\n\n") %>% 
+\n\n") |> 
     write_lines("result_ru.qmd", append = TRUE)
   
   map(seq_along(data_generate_text$title), function(j){
-    data_generate_text %>% 
-      slice(j)  %>% 
+    data_generate_text |> 
+      slice(j)  |> 
       mutate(one_talk = str_c("::: {.column width='15%'}\n\n",
                               ifelse(is.na(day), "", str_c("**", day)), 
                               " ", 
@@ -76,12 +76,12 @@ map(unique(df$year), function(i){
                               "<details><summary>Аннотация</summary>\n\n",
                               abstract,
                               "</details>\n\n",
-                              ":::\n\n")) %>% 
-      pull(one_talk) %>% 
+                              ":::\n\n")) |> 
+      pull(one_talk) |> 
       write_lines("result_ru.qmd", append = TRUE)
   })
   
-  str_c("::::\n\n") %>% 
+  str_c("::::\n\n") |> 
     write_lines("result_ru.qmd", append = TRUE)
 })
 
@@ -93,22 +93,22 @@ file.remove("result_en.qmd")
 
 str_c("\n\n## Seminars of [Linguistic Convergence Laboratory](https://ilcl.hse.ru/en/)\n\n
   If you are interested in participating in the laboratory seminars, please register [here](https://ilcl.hse.ru/en/polls/420288221.html).
-        ") %>% 
+        ") |> 
   write_lines("result_en.qmd", append = TRUE)
 
 map(unique(df$year), function(i){
-  df %>% 
+  df |> 
     filter(year == i) ->
     data_generate_text
   
   str_c("\n\n### Seminar schedule ", i, "\n\n
 :::: {.columns}
-\n\n") %>% 
+\n\n") |> 
     write_lines("result_en.qmd", append = TRUE)
   
   map(seq_along(data_generate_text$title), function(j){
-    data_generate_text %>% 
-      slice(j)  %>% 
+    data_generate_text |> 
+      slice(j)  |> 
       mutate(one_talk = str_c("::: {.column width='15%'}\n\n",
                               ifelse(is.na(day), "", str_c("**", day)), 
                               " ", 
@@ -121,12 +121,12 @@ map(unique(df$year), function(i){
                               "<details><summary>Abstract</summary>\n\n",
                               abstract,
                               "</details>\n\n",
-                              ":::\n\n")) %>% 
-      pull(one_talk) %>% 
+                              ":::\n\n")) |> 
+      pull(one_talk) |> 
       write_lines("result_en.qmd", append = TRUE)
   })
   
-  str_c("::::\n\n") %>% 
+  str_c("::::\n\n") |> 
     write_lines("result_en.qmd", append = TRUE)
 })
 
