@@ -28,16 +28,16 @@ df |>
 
 map(stopwords::stopwords_getsources()[-c(3, 6, 8)], function(i){
   print(i)
-  stopwords::stopwords(language = "en", source = i)
-}) %>% 
-  unlist() %>% 
-  unique() %>% 
+  stopwords::stopwords(language = "en", source = i)}) |> 
+  unlist() |>  
+  unique() |> 
   sort() ->
   stopwords_en
 
-set.seed(42)
+
 df |> 
   mutate(abstract = str_replace_all(abstract, "Nakh-Daghestanian", "Nakh_Daghestanian"),
+         abstract = str_replace_all(abstract, "cross-linguistic", "cross_linguistic"),
          abstract = str_replace_all(abstract, "East Caucasian", "East_Caucasian"),
          abstract = str_replace_all(abstract, "West Caucasian", "West_Caucasian"),
          abstract = str_replace_all(abstract, "East-Caucasian", "East_Caucasian"),
@@ -56,6 +56,7 @@ df |>
                           word == "daghestan" ~ "Daghestan",
                           word == "daghestanian" ~ "Daghestanian",
                           word == "nakh_daghestanian" ~ "Nakh-Daghestanian",
+                          word == "cross_linguistic" ~ "cross-linguistic",
                           word == "russian" ~ "Russian",
                           word == "rutul" ~ "Rutul",
                           word == "andic" ~ "Andic",
@@ -64,5 +65,7 @@ df |>
                           TRUE ~ word),
          n = log(n)) |>
   ggplot(aes(label = word, size = n))+
-  geom_text_wordcloud(rm_outside = TRUE) +
+  geom_text_wordcloud(rm_outside = TRUE, grid_margin = 2, seed = 42,
+                      shape = "square",
+                      max_grid_size = 138) +
   theme_minimal()
