@@ -7,11 +7,13 @@ df <- readxl::read_xlsx("data.xlsx")
 
 df |> 
   mutate(date = lubridate::make_date(year = year, month = month, day = day)) |> 
-  filter(year > 2018, year < 2023) |> 
+  filter(year > 2018, year <= 2023) |> 
   ggplot(aes(date))+
   geom_dotplot()+
   facet_wrap(~year, scales = "free")+
-  theme_minimal()
+  theme_minimal()+
+  labs(x = "", y = "")+
+  theme(axis.text.y = element_blank())
   
 df |> 
   mutate(author = str_remove_all(author, "\\(.*?\\)"),
