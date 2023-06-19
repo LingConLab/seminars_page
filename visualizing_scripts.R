@@ -65,7 +65,8 @@ df |>
                           word == "lezgic" ~ "Lezgic",
                           word == "andi" ~ "Andi",
                           TRUE ~ word),
-         n = log(n)) |>
+         n = log(n)) |> 
+  View()
   ggplot(aes(label = word, size = n))+
   geom_text_wordcloud(rm_outside = TRUE, grid_margin = 2, seed = 42,
                       shape = "square",
