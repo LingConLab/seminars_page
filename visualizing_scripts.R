@@ -4,17 +4,18 @@ library(tidytext)
 library(ggwordcloud)
 
 df <- readxl::read_xlsx("data.xlsx")
-
+Sys.setlocale("LC_TIME", "en_US.UTF-8")
 df |> 
-  mutate(date = lubridate::make_date(year = year, month = month, day = day)) |> 
-  filter(year > 2018, year <= 2023) |> 
+  mutate(date = lubridate::make_date(year = 2020, month = month, day = day)) |> 
   ggplot(aes(date))+
-  geom_dotplot()+
-  facet_wrap(~year, scales = "free")+
-  theme_minimal()+
+  geom_dotplot(dotsize = 0.3)+
+  facet_wrap(~year, ncol = 1)+
   labs(x = "", y = "")+
-  theme(axis.text.y = element_blank())
-  
+  theme_minimal() + 
+  theme(axis.text.y = element_blank())+
+  scale_x_date(date_labels = "%B")
+Sys.setlocale("LC_TIME", "ru_RU.UTF-8")
+
 df |> 
   mutate(author = str_remove_all(author, "\\(.*?\\)"),
          author = str_split(author, ", ")) |> 

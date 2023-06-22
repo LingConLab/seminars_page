@@ -17,6 +17,7 @@ df |>
   mutate(day2 = ifelse(lag(day) == day & lag(month) == month, NA, day),
          month2 = ifelse(lag(day) == day & lag(month) == month, NA, month),
          day = day2,
+         abstract = ifelse(is.na(abstract), "", abstract),
          month = month2) |> 
   slice(-1) |> 
   mutate(month_ru = case_when(month == 1 ~ "января",
