@@ -1,3 +1,7 @@
+## RScript doesn't load the same environment variables as your RStudio session, so find your path executing `quarto:::find_quarto()`:
+
+Sys.setenv(QUARTO_PATH="/usr/lib/rstudio/resources/app/bin/quarto/bin/quarto")
+
 # package instalation -----------------------------------------------------
 
 # install.packages(c("tidyverse", "readxl", "quarto"))

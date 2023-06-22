@@ -5,6 +5,6 @@ Alina Russkikh and George Moroz discussed the idea. George Moroz parsed data fro
 In order to generate pages
 
 1) update the `data.xlsx` file; 
-2) run the `code.R` script.
+2) run the `compile.R` script.
 
 The result can be seen [here](https://lingconlab.github.io/seminars_page/result_en.html) and [here](https://lingconlab.github.io/seminars_page/result_ru.html).
