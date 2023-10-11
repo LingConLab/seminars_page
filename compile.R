@@ -8,7 +8,7 @@ Sys.setenv(QUARTO_PATH="/usr/lib/rstudio/resources/app/bin/quarto/bin/quarto")
 
 # data transform ----------------------------------------------------------
 library(tidyverse)
-df <- readxl::read_xlsx("data.xlsx")
+df <- read_csv("data.csv")
 df |> 
   slice(1) |> 
   mutate(day = day + 1) |> 
