@@ -3,7 +3,7 @@ library(lubridate)
 library(tidytext)
 library(ggwordcloud)
 
-df <- readxl::read_xlsx("data.xlsx")
+df <- read_csv("data.csv")
 Sys.setlocale("LC_TIME", "en_US.UTF-8")
 df |> 
   mutate(date = lubridate::make_date(year = 2020, month = month, day = day)) |> 
@@ -67,9 +67,15 @@ df |>
                           word == "andi" ~ "Andi",
                           TRUE ~ word),
          n = log(n)) |> 
-  View()
   ggplot(aes(label = word, size = n))+
   geom_text_wordcloud(rm_outside = TRUE, grid_margin = 2, seed = 42,
                       shape = "square",
                       max_grid_size = 138) +
   theme_minimal()
+
+
+# number of seminars
+df |> 
+  mutate(date = lubridate::make_date(year = 2020, month = month, day = day)) |> 
+  distinct(date) |> 
+  nrow()
