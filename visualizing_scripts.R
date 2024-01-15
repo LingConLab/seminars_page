@@ -12,7 +12,8 @@ df |>
   facet_wrap(~year, ncol = 1)+
   labs(x = "", y = "")+
   theme_minimal() + 
-  theme(axis.text.y = element_blank())+
+  theme(axis.text.y = element_blank(),
+        text = element_text(size = 18))+
   scale_x_date(date_labels = "%B")
 Sys.setlocale("LC_TIME", "ru_RU.UTF-8")
 
