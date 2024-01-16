@@ -7,8 +7,8 @@ Sys.setenv(QUARTO_PATH="/usr/lib/rstudio/resources/app/bin/quarto/bin/quarto")
 # install.packages(c("tidyverse", "readxl", "quarto"))
 
 # data transform ----------------------------------------------------------
-library(tidyverse)
-df <- read_csv("data.csv")
+suppressPackageStartupMessages(library(tidyverse))
+df <- read_csv("data.csv", show_col_types = FALSE)
 df |> 
   slice(1) |> 
   mutate(day = day + 1) |> 
@@ -56,7 +56,7 @@ str_c("\n\n## Семинары [международная лаборатори�
         ") |> 
   write_lines("result_ru.qmd", append = TRUE)
 
-map(unique(df$year), function(i){
+walk(unique(df$year), function(i){
   df |> 
     filter(year == i) ->
     data_generate_text
@@ -66,7 +66,7 @@ map(unique(df$year), function(i){
 \n\n") |> 
     write_lines("result_ru.qmd", append = TRUE)
   
-  map(seq_along(data_generate_text$title), function(j){
+  walk(seq_along(data_generate_text$title), function(j){
     data_generate_text |> 
       slice(j)  |> 
       mutate(one_talk = str_c("::: {.column width='15%'}\n\n",
@@ -101,7 +101,7 @@ str_c("\n\n## Seminars of [Linguistic Convergence Laboratory](https://ilcl.hse.r
         ") |> 
   write_lines("result_en.qmd", append = TRUE)
 
-map(unique(df$year), function(i){
+walk(unique(df$year), function(i){
   df |> 
     filter(year == i) ->
     data_generate_text
@@ -111,7 +111,7 @@ map(unique(df$year), function(i){
 \n\n") |> 
     write_lines("result_en.qmd", append = TRUE)
   
-  map(seq_along(data_generate_text$title), function(j){
+  walk(seq_along(data_generate_text$title), function(j){
     data_generate_text |> 
       slice(j)  |> 
       mutate(one_talk = str_c("::: {.column width='15%'}\n\n",
