@@ -96,7 +96,7 @@ quarto::quarto_render("result_ru.qmd")
 
 file.remove("result_en.qmd")
 
-str_c("\n\n## Seminars of [Linguistic Convergence Laboratory](https://ilcl.hse.ru/en/)\n\n
+str_c("\n\n## Seminars of the [Linguistic Convergence Laboratory](https://ilcl.hse.ru/en/)\n\n
   If you are interested in participating in the laboratory seminars, please register [here](https://ilcl.hse.ru/en/polls/420288221.html).
         ") |> 
   write_lines("result_en.qmd", append = TRUE)
