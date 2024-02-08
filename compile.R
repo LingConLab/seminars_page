@@ -51,7 +51,7 @@ df |>
 
 file.remove("result_ru.qmd")
 
-str_c("\n\n## Семинары [международная лаборатории языковой конвергенции](https://ilcl.hse.ru/)\n\n
+str_c("\n\n## Семинары [международной лаборатории языковой конвергенции](https://ilcl.hse.ru/)\n\n
   Если вы хотите участвовать в семинарах лаборатории, вы можете зарегистрироваться [здесь](https://ilcl.hse.ru/en/polls/420288221.html).
         ") |> 
   write_lines("result_ru.qmd", append = TRUE)
