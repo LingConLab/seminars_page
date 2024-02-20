@@ -53,7 +53,7 @@ df |>
   count(word, sort = TRUE) |> 
   anti_join(tibble(word = stopwords_en)) |> 
   filter(str_detect(word, "[A-z]"),
-         !(word %in% c("e.g", "eds")),
+         !(word %in% c("e.g", "eds", "https", "university", "i.e")),
          n > 15) |> 
   mutate(word = case_when(word == "east_caucasian" ~ "East Caucasian",
                           word == "caucasus" ~ "Caucasus",
@@ -64,6 +64,7 @@ df |>
                           word == "russian" ~ "Russian",
                           word == "rutul" ~ "Rutul",
                           word == "andic" ~ "Andic",
+                          word == "avar" ~ "Avar",
                           word == "lezgic" ~ "Lezgic",
                           word == "andi" ~ "Andi",
                           TRUE ~ word),
