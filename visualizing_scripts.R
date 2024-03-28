@@ -75,9 +75,8 @@ df |>
                       max_grid_size = 138) +
   theme_minimal()
 
-
 # number of seminars
 df |> 
-  mutate(date = lubridate::make_date(year = 2020, month = month, day = day)) |> 
+  mutate(date = lubridate::make_date(year = year, month = month, day = day)) |> 
   distinct(date) |> 
   nrow()
