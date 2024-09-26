@@ -38,7 +38,6 @@ map(stopwords::stopwords_getsources()[-c(3, 6, 8)], function(i){
   sort() ->
   stopwords_en
 
-
 df |> 
   mutate(abstract = str_replace_all(abstract, "Nakh-Daghestanian", "Nakh_Daghestanian"),
          abstract = str_replace_all(abstract, "cross-linguistic", "cross_linguistic"),
@@ -80,3 +79,4 @@ df |>
   mutate(date = lubridate::make_date(year = year, month = month, day = day)) |> 
   distinct(date) |> 
   nrow()
+
