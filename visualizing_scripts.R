@@ -1,3 +1,4 @@
+setwd("/home/agricolamz/work/bureaucracy/linguistic_convergency/seminars_page")
 library(tidyverse)
 library(lubridate)
 library(tidytext)
@@ -69,7 +70,9 @@ df |>
                           TRUE ~ word),
          n = log(n)) |> 
   ggplot(aes(label = word, size = n))+
-  geom_text_wordcloud(rm_outside = TRUE, grid_margin = 2, seed = 42,
+  geom_text_wordcloud(rm_outside = FALSE,
+                      grid_margin = 2, 
+                      seed = 42,
                       shape = "square",
                       max_grid_size = 138) +
   theme_minimal()
