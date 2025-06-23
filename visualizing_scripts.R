@@ -43,6 +43,7 @@ df |>
   mutate(abstract = str_replace_all(abstract, "Nakh-Daghestanian", "Nakh_Daghestanian"),
          abstract = str_replace_all(abstract, "cross-linguistic", "cross_linguistic"),
          abstract = str_replace_all(abstract, "East Caucasian", "East_Caucasian"),
+         abstract = str_replace_all(abstract, "Neo-Aramaic", "Neo_Aramaic"),
          abstract = str_replace_all(abstract, "Indo-European", "Indo_European"),
          abstract = str_replace_all(abstract, "Afro-Asiatic", "Afro_Asiatic"),
          abstract = str_replace_all(abstract, "West Caucasian", "West_Caucasian"),
@@ -56,17 +57,23 @@ df |>
   anti_join(tibble(word = stopwords_en)) |>
   filter(str_detect(word, "[A-z]"),
          !(word %in% c("e.g", "eds", "https", "university", "i.e")),
-         n > 20) |> 
+         n > 12) |> 
   mutate(word = case_when(word == "east_caucasian" ~ "East Caucasian",
                           word == "caucasus" ~ "Caucasus",
                           word == "daghestan" ~ "Daghestan",
                           word == "daghestanian" ~ "Daghestanian",
                           word == "nakh_daghestanian" ~ "Nakh-Daghestanian",
+                          word == "neo_aramaic" ~ "Neo-Aramaic",
                           word == "indo_european" ~ "Indo-European",
                           word == "afro_asiatic" ~ "Afro-Asiatic",
                           word == "cross_linguistic" ~ "cross-linguistic",
                           word == "russian" ~ "Russian",
                           word == "rutul" ~ "Rutul",
+                          word == "l2" ~ "L2",
+                          word == "l1" ~ "L1",
+                          word == "english" ~ "English",
+                          word == "bantu" ~ "Bantu",
+                          word == "archi" ~ "Archi",
                           word == "andic" ~ "Andic",
                           word == "avar" ~ "Avar",
                           word == "oxford" ~ "Oxford",
@@ -75,6 +82,7 @@ df |>
                           word == "andi" ~ "Andi",
                           TRUE ~ word),
          n = log(n)) |> 
+  View()
   ggplot(aes(label = word, size = n))+
   geom_text_wordcloud(rm_outside = FALSE,
                       grid_margin = 2, 
