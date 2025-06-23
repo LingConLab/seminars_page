@@ -43,6 +43,8 @@ df |>
   mutate(abstract = str_replace_all(abstract, "Nakh-Daghestanian", "Nakh_Daghestanian"),
          abstract = str_replace_all(abstract, "cross-linguistic", "cross_linguistic"),
          abstract = str_replace_all(abstract, "East Caucasian", "East_Caucasian"),
+         abstract = str_replace_all(abstract, "Indo-European", "Indo_European"),
+         abstract = str_replace_all(abstract, "Afro-Asiatic", "Afro_Asiatic"),
          abstract = str_replace_all(abstract, "West Caucasian", "West_Caucasian"),
          abstract = str_replace_all(abstract, "East-Caucasian", "East_Caucasian"),
          abstract = str_replace_all(abstract, "West-Caucasian", "West_Caucasian"),
@@ -51,20 +53,24 @@ df |>
          abstract = str_replace_all(abstract, "languagess", "languages")) |> 
   unnest_tokens(input = "abstract", output = "word") |> 
   count(word, sort = TRUE) |> 
-  anti_join(tibble(word = stopwords_en)) |> 
+  anti_join(tibble(word = stopwords_en)) |>
   filter(str_detect(word, "[A-z]"),
          !(word %in% c("e.g", "eds", "https", "university", "i.e")),
-         n > 15) |> 
+         n > 20) |> 
   mutate(word = case_when(word == "east_caucasian" ~ "East Caucasian",
                           word == "caucasus" ~ "Caucasus",
                           word == "daghestan" ~ "Daghestan",
                           word == "daghestanian" ~ "Daghestanian",
                           word == "nakh_daghestanian" ~ "Nakh-Daghestanian",
+                          word == "indo_european" ~ "Indo-European",
+                          word == "afro_asiatic" ~ "Afro-Asiatic",
                           word == "cross_linguistic" ~ "cross-linguistic",
                           word == "russian" ~ "Russian",
                           word == "rutul" ~ "Rutul",
                           word == "andic" ~ "Andic",
                           word == "avar" ~ "Avar",
+                          word == "oxford" ~ "Oxford",
+                          word == "abaza" ~ "Abaza",
                           word == "lezgic" ~ "Lezgic",
                           word == "andi" ~ "Andi",
                           TRUE ~ word),
