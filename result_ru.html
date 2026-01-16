@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -26,14 +26,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="result_ru_files/libs/clipboard/clipboard.min.js"></script>
 <script src="result_ru_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="result_ru_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="result_ru_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="result_ru_files/libs/quarto-html/popper.min.js"></script>
 <script src="result_ru_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="result_ru_files/libs/quarto-html/anchor.min.js"></script>
 <link href="result_ru_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="result_ru_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="result_ru_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="result_ru_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="result_ru_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="result_ru_files/libs/bootstrap/bootstrap-afe802cb54e224aecf709ed1274ce08a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="result_ru_files/libs/bootstrap/bootstrap-44aa975785bef04068f56b03a8931892.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -50,6 +51,23 @@ ul.task-list li input[type="checkbox"] {
 <section id="семинары-международной-лаборатории-языковой-конвергенции" class="level2">
 <h2 class="anchored" data-anchor-id="семинары-международной-лаборатории-языковой-конвергенции">Семинары <a href="https://ilcl.hse.ru/">международной лаборатории языковой конвергенции</a></h2>
 <p>Если вы хотите участвовать в семинарах лаборатории, вы можете зарегистрироваться <a href="https://ilcl.hse.ru/en/polls/420288221.html">здесь</a>.</p>
+<section id="расписание-семинаров-в-2026-году" class="level3">
+<h3 class="anchored" data-anchor-id="расписание-семинаров-в-2026-году">Расписание семинаров в 2026 году</h3>
+<div class="columns">
+<div class="column" style="width:15%;">
+<p><strong>20 января</strong></p>
+</div><div class="column" style="width:85%;">
+<p><em>Anastasia Panova (Stockholm University)</em></p>
+<p><strong>Subordination strategies in Gawarbati (Indo-Aryan): an areal-typological perspective</strong></p>
+<details>
+<summary>
+Аннотация
+</summary>
+Gawarbati is an under-described Indo-Aryan language spoken by approximately 20,000 people in the border area between Pakistan and Afghanistan. Since 2021, it has been documented by a Swedish-Pakistani team under the supervision of Henrik Liljegren (Stockholm University). One of the main outputs of the documentation project is a spoken corpus containing more than 20 hours of transcribed, glossed and translated speech from various genres. The focus of this talk will be on the use of finite subordination strategies in the Gawarbati corpus. I will start by presenting an overview of finite subordination strategies in neighboring Indo-Iranian languages. Against this background, I will describe the functions of each of the subordinators attested in the Gawarbati corpus. On the basis of the analysis of the functional distribution of various subordinators, I will try to reconstruct the possible stages in the evolution of subordination strategies in Gawarbati and discuss the role of language contact in this process.
+</details>
+</div>
+</div>
+</section>
 <section id="расписание-семинаров-в-2025-году" class="level3">
 <h3 class="anchored" data-anchor-id="расписание-семинаров-в-2025-году">Расписание семинаров в 2025 году</h3>
 <div class="columns">
@@ -3675,13 +3693,14 @@ The DagLoans project aims at investigating lexical convergence between East Cauc
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
